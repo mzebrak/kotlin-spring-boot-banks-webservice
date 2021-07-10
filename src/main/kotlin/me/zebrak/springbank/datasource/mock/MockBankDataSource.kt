@@ -5,7 +5,7 @@ import me.zebrak.springbank.model.Bank
 import org.springframework.stereotype.Repository
 import java.lang.IllegalArgumentException
 
-@Repository
+@Repository("mock")
 class MockBankDataSource : BankDataSource {
     val banks = mutableListOf<Bank>(Bank("1234", 10.0, 1),
                                     Bank("1010", 20.0, 2),

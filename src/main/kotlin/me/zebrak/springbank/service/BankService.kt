@@ -2,10 +2,11 @@ package me.zebrak.springbank.service
 
 import me.zebrak.springbank.datasource.BankDataSource
 import me.zebrak.springbank.model.Bank
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 
 @Service
-class BankService(private val dataSource: BankDataSource) {
+class BankService(@Qualifier("mock") private val dataSource: BankDataSource) {
 
     fun getBanks(): Collection<Bank> = dataSource.retrieveBanks()
 

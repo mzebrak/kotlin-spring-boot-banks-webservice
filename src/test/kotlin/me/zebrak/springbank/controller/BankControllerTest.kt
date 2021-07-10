@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.web.servlet.*
 
 @SpringBootTest
@@ -33,8 +34,8 @@ internal class BankControllerTest @Autowired constructor(val mockMvc: MockMvc,
                 .andExpect {
                     status { isOk() }
                     content { contentType(MediaType.APPLICATION_JSON) }
-                    jsonPath("$[0].accountNumber") { value("1234") }
-                    jsonPath("$[1].accountNumber") { value("1010") }
+                    jsonPath("$[0].account_number") { value("1234") }
+                    jsonPath("$[1].account_number") { value("1010") }
                 }
         }
     }
@@ -57,7 +58,7 @@ internal class BankControllerTest @Autowired constructor(val mockMvc: MockMvc,
                     status { isOk() }
                     content {
                         contentType(MediaType.APPLICATION_JSON)
-                        jsonPath("$.accountNumber") { value("1234") }
+                        jsonPath("$.account_number") { value("1234") }
                     }
                 }
         }
@@ -96,9 +97,9 @@ internal class BankControllerTest @Autowired constructor(val mockMvc: MockMvc,
                         contentType(MediaType.APPLICATION_JSON)
                         //json(objectMapper.writeValueAsString(newBank))
                     }
-                    jsonPath("$.accountNumber") { value("123456") }
+                    jsonPath("$.account_number") { value("123456") }
                     jsonPath("$.trust") { value("32.0") }
-                    jsonPath("$.transactionFee") { value("3") }
+                    jsonPath("$.default_transaction_fee") { value("3") }
                 }
 
             mockMvc.get("$baseUrl/${newBank.accountNumber}")
@@ -179,6 +180,7 @@ internal class BankControllerTest @Autowired constructor(val mockMvc: MockMvc,
     @TestInstance(Lifecycle.PER_CLASS)
     inner class DeleteExistingBank {
         @Test
+        @DirtiesContext
         fun `should DELETE the bank with the given account number`() {
             // given
             val accountNumber = "1234"

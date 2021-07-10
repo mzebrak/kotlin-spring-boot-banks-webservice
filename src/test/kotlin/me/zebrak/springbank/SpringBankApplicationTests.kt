@@ -9,5 +9,4 @@ class SpringBankApplicationTests {
 	@Test
 	fun contextLoads() {
 	}
-
 }
