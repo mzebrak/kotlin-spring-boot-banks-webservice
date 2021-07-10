@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.lang.IllegalArgumentException
 
-
 @RestController
 @RequestMapping("/api/banks")
 class BankController(private val bankService: BankService) {
@@ -32,5 +31,9 @@ class BankController(private val bankService: BankService) {
     fun addBank(@RequestBody bank: Bank): Bank = bankService.addBank(bank)
 
     @PatchMapping
-    fun updateBank(@RequestBody bank: Bank): Bank  = bankService.updateBank(bank)
+    fun updateBank(@RequestBody bank: Bank): Bank = bankService.updateBank(bank)
+
+    @DeleteMapping("/{accountNumber}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteBank(@PathVariable accountNumber: String): Unit = bankService.deleteBank(accountNumber)
 }
